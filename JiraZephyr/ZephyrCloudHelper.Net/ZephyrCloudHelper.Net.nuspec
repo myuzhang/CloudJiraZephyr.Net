@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ZephyrCloudHelper.Net</id>
+    <version>$version$</version>
+    <title>Test Management in cloud Zephyr</title>
+    <authors>Michael Zhang</authors>
+    <owners>Michael Zhang</owners>
+    <projectUrl>https://github.com/myuzhang/TestReport.Net/tree/master/TestReport.SpecFlow</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CRUD on tests, test cycles and test versions via cloud Zephyr and Jira</description>
+    <releaseNotes>The first release.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>Test Zephyr Jira</tags>
+  </metadata>
+</package>

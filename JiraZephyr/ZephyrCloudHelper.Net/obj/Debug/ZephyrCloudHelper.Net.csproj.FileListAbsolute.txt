@@ -1,0 +1,17 @@
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\ZephyrCloudHelper.Net.dll.config
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\ZephyrCloudHelper.Net.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\ZephyrCloudHelper.Net.pdb
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\JWT.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\Newtonsoft.Json.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\RestSharp.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\JWT.xml
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\Newtonsoft.Json.pdb
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\Newtonsoft.Json.xml
+C:\dev\Nuget\ZephyrCloudHelper.Net\bin\Debug\RestSharp.xml
+C:\dev\Nuget\ZephyrCloudHelper.Net\obj\Debug\ZephyrCloudHelper.Net.csprojAssemblyReference.cache
+C:\dev\Nuget\ZephyrCloudHelper.Net\obj\Debug\ZephyrCloudHelper.Net.csproj.CoreCompileInputs.cache
+C:\dev\Nuget\ZephyrCloudHelper.Net\obj\Debug\ZephyrCloudHelper.Net.csproj.CopyComplete
+C:\dev\Nuget\ZephyrCloudHelper.Net\obj\Debug\ZephyrCloudHelper.Net.dll
+C:\dev\Nuget\ZephyrCloudHelper.Net\obj\Debug\ZephyrCloudHelper.Net.pdb
