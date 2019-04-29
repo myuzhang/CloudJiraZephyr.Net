@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using ZephyrCloudHelper.Net.Models;
@@ -14,7 +15,7 @@ namespace ZephyrCloudHelper.Net
     /// <summary>
     /// Jira API related methods
     /// </summary>
-    internal class JiraCloudApi
+    public class JiraCloudApi
     {
         private const string Id = "id";
         private const string Key = "key";
@@ -50,20 +51,24 @@ namespace ZephyrCloudHelper.Net
             };
         }
 
-        public Version GetVersion(string versionName)
+        public IList<Version> GetVersions()
         {
-            // suppose we will have 500 releases for CPR project, let's see if we can survive that long ^_^
             var source = $"{JiraSource}/project/{_jiraApi.ProjectKey}/version?maxResults=500&orderBy=-sequence";
             var response = SendHttpRequest(source, Method.GET);
             if (response == null) return null;
-            var versions = (JArray)response["values"];
-            var version = (from v in versions
-                           select new Version
-                           {
-                               Id = (long)v[Id],
-                               Name = (string)v[Name],
-                               ProjectId = (long)v[ProjectId]
-                           })
+            var jsonVersions = (JArray) response["values"];
+            return (from v in jsonVersions
+                select new Version
+                {
+                    Id = (long) v[Id],
+                    Name = (string) v[Name],
+                    ProjectId = (long) v[ProjectId]
+                }).ToList();
+        }
+
+        public Version GetVersion(string versionName)
+        {
+            var version = GetVersions()
                 .FirstOrDefault(v => v.Name.Equals(versionName, StringComparison.CurrentCultureIgnoreCase));
 
             return version;
@@ -103,13 +108,13 @@ namespace ZephyrCloudHelper.Net
                         sectionIssues.
                             Where(s => queryString.Trim().
                                 Equals(s.Summary?.Trim(), StringComparison.CurrentCultureIgnoreCase)).
-                            Select(s => s.Summary).
+                            Select(s => s.Key).
                             ToList();
                 }
             }
             else
             {
-                keys = sectionIssues.Select(s => s.Summary).ToList();
+                keys = sectionIssues.Select(s => s.Key).ToList();
             }
 
             return keys;
@@ -167,7 +172,13 @@ namespace ZephyrCloudHelper.Net
             {
                 var request = new RestRequest(source, method);
                 if (method == Method.POST || method == Method.PUT)
-                    request.AddJsonBody(requestPayload);
+                {
+                    var json = JsonConvert.SerializeObject(requestPayload, new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    });
+                    request.AddParameter("application/json", json, ParameterType.RequestBody);
+                }
 
                 response = _restClient.Execute(request);
                 if (response.StatusCode.Equals(HttpStatusCode.NotFound))
