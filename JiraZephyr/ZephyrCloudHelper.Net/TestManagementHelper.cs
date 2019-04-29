@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZephyrCloudHelper.Net.Models;
 using ZephyrCloudHelper.Net.Models.Jira;
 
@@ -18,13 +17,11 @@ namespace ZephyrCloudHelper.Net
             _service = new AtlassianService(zapi, jiraApi);
         }
 
-        public void UpdateTestStatus(string testCaseKey, string versionName, UnitTestOutcome outcome)
+        public void UpdateTestStatus(string testCaseKey, string versionName, JiraTestOutcome outcome)
         {
             try
             {
-                var status = (JiraTestOutcome)Enum.Parse(typeof(JiraTestOutcome), outcome.ToString());
-
-                _service.UpdateTestCaseInVersion(testCaseKey, versionName, status);
+                _service.UpdateTestCaseInVersion(testCaseKey, versionName, outcome);
             }
             catch (Exception e)
             {
