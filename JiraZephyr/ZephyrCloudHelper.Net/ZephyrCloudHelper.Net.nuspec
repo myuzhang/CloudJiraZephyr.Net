@@ -2,13 +2,12 @@
 <package>
   <metadata>
     <id>ZephyrCloudHelper.Net</id>
-    <version>1.0.1</version>
+    <version>1.0.4</version>
     <title>Test Management in cloud Zephyr</title>
     <authors>Michael Zhang</authors>
     <owners>Michael Zhang</owners>
     <projectUrl>https://github.com/myuzhang/CloudJiraZephyr.Net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <description>CRUD on tests, test cycles and test versions via cloud Zephyr and Jira</description>
     <releaseNotes>Fix some minor issues.</releaseNotes>
     <copyright>Copyright 2020</copyright>

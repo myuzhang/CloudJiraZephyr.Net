@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using ZephyrCloudHelper.Net.Models;
 using ZephyrCloudHelper.Net.Models.Jira;

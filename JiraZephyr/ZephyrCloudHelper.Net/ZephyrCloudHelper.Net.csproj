@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZephyrCloudHelper.Net</RootNamespace>
     <AssemblyName>ZephyrCloudHelper.Net</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AtlassianService.cs" />
+    <Compile Include="IZephyrCloudApi.cs" />
     <Compile Include="TestManagementHelper.cs" />
     <Compile Include="JiraCloudApi.cs" />
     <Compile Include="Models\JiraApi.cs" />

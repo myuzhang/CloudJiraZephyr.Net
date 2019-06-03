@@ -12,7 +12,7 @@ namespace ZephyrCloudHelper.Net
     /// Jira API related methods
     /// Zephyr Cloud REST API - https://zfjcloud.docs.apiary.io/#
     /// </summary>
-    public class ZephyrCloudApi
+    public class ZephyrCloudApi : IZephyrCloudApi
     {
         public const string Execution = "execution";
 
