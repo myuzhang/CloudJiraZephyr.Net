@@ -131,6 +131,65 @@ namespace ZephyrCloudHelper
             return keys;
         }
 
+        public JContainer Search(string jql, List<string> fields, int startAt = 0, int maxResults = 100)
+        {
+            var source = $"{JiraSource}/search";
+            return SendHttpRequest(source, Method.POST, new
+            {
+                jql = jql,
+                startAt = startAt,
+                maxResults = maxResults,
+                fields = fields
+            });
+        }
+
+        public IList<Issue> SearchIssues(string issueSummary, bool exactMatch = false)
+        {
+            List<Issue> issues = null;
+            var jql = $"Summary ~ '{issueSummary}'";
+            var result = Search(jql, new List<string> {"id", "key", "summary", "project"});
+
+            if ((int) result["total"] == 0) return null;
+
+            var sectionIssues = (from s in result["issues"] as JArray
+                select new
+                {
+                    Id = (long) s["id"],
+                    Key = (string) s["key"],
+                    Summary = (string) s["fields"]["summary"],
+                    ProjectId = (long) s["fields"]["project"]["id"]
+                }).ToList();
+
+            if (exactMatch)
+            {
+                if (sectionIssues.Count > 0)
+                {
+                    issues =
+                        sectionIssues
+                            .Where(s => issueSummary.Trim()
+                                .Equals(s.Summary?.Trim(), StringComparison.CurrentCultureIgnoreCase))
+                            .Select(s =>
+                                new Issue
+                                {
+                                    Id = s.Id,
+                                    Key = s.Key,
+                                    ProjectId = s.ProjectId
+                                }).ToList();
+                }
+            }
+            else
+            {
+                issues = sectionIssues.Select(s => new Issue
+                {
+                    Id = s.Id,
+                    Key = s.Key,
+                    ProjectId = s.ProjectId
+                }).ToList();
+            }
+
+            return issues;
+        }
+
         public Issue CreateIssue(IssueCreation issueCreation)
         {
             var source = $"{JiraSource}/issue";

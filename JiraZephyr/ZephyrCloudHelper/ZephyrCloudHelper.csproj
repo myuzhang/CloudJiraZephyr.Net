@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>ZephyrCloudHelper.Net</PackageId>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
     <Authors>Michael Zhang</Authors>
     <Description>This is for Jira/Zephyr management in test cycle, test case and execution.</Description>
     <Copyright>Copyright 2020</Copyright>
