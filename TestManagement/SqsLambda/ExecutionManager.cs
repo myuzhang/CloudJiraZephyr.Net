@@ -22,8 +22,9 @@ namespace SqsLambda
             _testSuiteManager = testSuiteManager;
         }
 
-        public async Task<(bool,string)> UpdateTestResult(TestInfo testInfo)
+        public async Task<(bool, string)> UpdateTestResult(TestInfo testInfo)
         {
+            IList<Issue> issues = null;
             string jiraTicket = String.Empty;
             try
             {
@@ -34,10 +35,24 @@ namespace SqsLambda
 
                 IList<Execution> executions = null;
 
-                var issueKeys = _jiraCloudApi.QueryIssueKeys(testInfo.Title, true);
+                // look up test according to testInfo.TestKey first
+                if (!string.IsNullOrWhiteSpace(testInfo.TestKey))
+                {
+                    var issueKey = _jiraCloudApi.GetIssue(testInfo.TestKey);
+                    if (issueKey != null)
+                    {
+                        issues = new List<Issue> { issueKey };
+                    }
+                }
+
+                // look up test according to testInfo.Title if testInfo.TestKey is not provided or not found
+                if (issues == null)
+                {
+                    issues = _jiraCloudApi.SearchIssues(testInfo.Title, true);
+                }
 
                 // if no issues found, the issue will be created
-                if (issueKeys == null || issueKeys.Count == 0)
+                if (issues == null || issues.Count == 0)
                 {
                     var issue = _jiraCloudApi.CreateIssue(new IssueCreation
                     {
@@ -66,10 +81,9 @@ namespace SqsLambda
                 }
                 else
                 {
-                    jiraTicket = issueKeys.FirstOrDefault();
-                    foreach (var issueKey in issueKeys)
+                    jiraTicket = issues.FirstOrDefault()?.Key;
+                    foreach (var issue in issues)
                     {
-                        var issue = _jiraCloudApi.GetIssue(issueKey);
                         executions = _zephyrCloudApi.GetExecutionsFromCycle(issue.Id, cycle.Id, project.Id);
 
                         // if no execution found, assign the issue to test cycle to create an execution
