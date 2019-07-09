@@ -94,6 +94,7 @@ namespace ZephyrCloudHelper
             {
                 Id = (long)response[Id],
                 Key = (string)response[Key],
+                Summary = (string)response["fields"]["summary"],
                 ProjectId = (long)response["fields"]["project"][Id]
             };
         }
@@ -173,6 +174,7 @@ namespace ZephyrCloudHelper
                                 {
                                     Id = s.Id,
                                     Key = s.Key,
+                                    Summary = s.Summary,
                                     ProjectId = s.ProjectId
                                 }).ToList();
                 }
@@ -183,6 +185,7 @@ namespace ZephyrCloudHelper
                 {
                     Id = s.Id,
                     Key = s.Key,
+                    Summary = s.Summary,
                     ProjectId = s.ProjectId
                 }).ToList();
             }
@@ -199,6 +202,7 @@ namespace ZephyrCloudHelper
             {
                 Id = (long)response[Id],
                 Key = (string)response[Key],
+                Summary = issueCreation.fields.summary,
                 ProjectId = Project.Id
             };
         }

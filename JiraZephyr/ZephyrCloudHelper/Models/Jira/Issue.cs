@@ -9,6 +9,8 @@
 
         public string Key { get; set; }
 
+        public string Summary { get; set; }
+
         public long ProjectId { get; set; }
     }
 }
