@@ -42,14 +42,17 @@ It is implemented in folder 'TestManagement' and we will have three use cases:
 This is applied when you like to manage your test cases and execution result via SQS.
 
 The SQS message format is:
+```
 {
-	"Title": "test title, which is required",
+	"TestKey": "test key where you can get it from url, if this one is not provided, Title will be used to search jira ticket"
+	"Title": "test title, if TestKey is not provided, Title will be used to find the jira ticket",
 	"Description": "test description, if you put empty string here, no description will be created in the Jira test case, whic is optional",
 	"Result": "Passed or Failed, which is required",
 	"TestCycle": "test cycle name, which is required",
 	"TestVersion": "test version name, which is required",
 	"ProjectKey": "project key, which is required",
 }
+```
 
 After you post the message to SQS, it does test management and execution result update for you:
   1. looking for project key (failed if not found)
