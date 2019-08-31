@@ -1,4 +1,4 @@
-﻿namespace SqsLambda
+﻿namespace TestManager
 {
     public class TestInfo
     {

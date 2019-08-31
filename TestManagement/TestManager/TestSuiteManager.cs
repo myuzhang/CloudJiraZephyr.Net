@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using ZephyrCloudHelper;
 using ZephyrCloudHelper.Models.Jira;
 
-namespace SqsLambda
+namespace TestManager
 {
-    class TestSuiteManager : ITestSuiteManager
+    public class TestSuiteManager : ITestSuiteManager
     {
         private readonly IJiraCloudApi _jiraCloudApi;
         private readonly IZephyrCloudApi _zephyrCloudApi;

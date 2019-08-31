@@ -1,7 +1,7 @@
 ﻿using ZephyrCloudHelper.Models.Jira;
 using Version = ZephyrCloudHelper.Models.Jira.Version;
 
-namespace SqsLambda
+namespace TestManager
 {
     public class TestSuiteInfo
     {

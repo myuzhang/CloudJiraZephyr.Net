@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SqsLambda
+namespace TestManager
 {
     public interface ITestSuiteManager
     {

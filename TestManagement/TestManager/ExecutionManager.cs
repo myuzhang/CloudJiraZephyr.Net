@@ -7,7 +7,7 @@ using ZephyrCloudHelper.Models;
 using ZephyrCloudHelper.Models.Jira;
 using ZephyrCloudHelper.Models.Zephyr;
 
-namespace SqsLambda
+namespace TestManager
 {
     public class ExecutionManager : IExecutionManager
     {
