@@ -78,7 +78,7 @@ This is pretty much the same as 'AWS SQS to Lambda', but use you need to deploy 
 ### Docker container
 
 The test management and test result update is the same as 'AWS SQS to Lambda', it is using docker container though. You can add this as a deployment step in your CI process.
-Comming soon.
+Please go to https://cloud.docker.com/repository/registry-1.docker.io/myuzhang/cloud-jira-zephyr for details.
 
 ## To users:
 I am glad if you like to use it. If you find any issues please free to contact me and I will fix it. Also welcome to adding more Jira/Zephyr actions to this repository.
