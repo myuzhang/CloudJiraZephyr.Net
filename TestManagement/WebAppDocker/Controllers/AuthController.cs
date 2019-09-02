@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ZephyrCloudHelper;
 using ZephyrCloudHelper.Models;
 
 namespace WebAppDocker.Controllers
@@ -9,57 +8,37 @@ namespace WebAppDocker.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IJiraCloudApi _jiraCloudApi;
-        private readonly IZephyrCloudApi _zephyrCloudApi;
-
-        public AuthController(IJiraCloudApi jiraCloudApi, IZephyrCloudApi zephyrCloudApi)
+        private readonly ITestManagerService _testManagerService;
+        
+        public AuthController(ITestManagerService testManagerService)
         {
-            _jiraCloudApi = jiraCloudApi;
-            _zephyrCloudApi = zephyrCloudApi;
+            _testManagerService = testManagerService;
         }
 
         // POST api/auth/jira
         [HttpPost("jira")]
-        public void GetJiraAuth([FromBody] JiraApi auth)
+        public async Task<IActionResult> SetJiraAuth([FromBody] JiraApi auth)
         {
+            if (string.IsNullOrWhiteSpace(auth.Authentication) ||
+                string.IsNullOrWhiteSpace(auth.JiraCloudUrl) ||
+                string.IsNullOrWhiteSpace(auth.ProjectKey))
+                return BadRequest("Please provide correct full info of auth for Jira");
+
+            _testManagerService.SetJiraCloudApi(auth);
+            return Ok("Jira auth has been setup");
         }
 
         // POST api/auth
         [HttpPost("zephyr")]
-        public void GetZephyrAuth([FromBody] Zapi auth)
+        public async Task<IActionResult> SetZephyrAuth([FromBody] Zapi auth)
         {
-        }
+            if (string.IsNullOrWhiteSpace(auth.AccessKey) ||
+                string.IsNullOrWhiteSpace(auth.SecretKey) ||
+                string.IsNullOrWhiteSpace(auth.User))
+                return BadRequest("Please provide correct full info of auth for Zephyr");
 
-        // GET api/auth
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/auth/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/auth
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/auth/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/auth/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _testManagerService.SetZephyrCloudApi(auth);
+            return Ok("Zephyr auth has been setup");
         }
     }
 }

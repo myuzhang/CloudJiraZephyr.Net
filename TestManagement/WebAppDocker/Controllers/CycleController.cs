@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebAppDocker.Models;
 
 namespace WebAppDocker.Controllers
 {
@@ -11,36 +8,24 @@ namespace WebAppDocker.Controllers
     [ApiController]
     public class CycleController : ControllerBase
     {
-        // GET: api/Cycle
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        private readonly ITestManagerService _testManagerService;
 
-        // GET: api/Cycle/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public CycleController(ITestManagerService testManagerService)
         {
-            return "value";
+            _testManagerService = testManagerService;
         }
 
         // POST: api/Cycle
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateTestCycle([FromBody] TestCycleInfo testCycleInfo)
         {
-        }
+            if (string.IsNullOrWhiteSpace(testCycleInfo.ProjectKey) ||
+                string.IsNullOrWhiteSpace(testCycleInfo.TestCycle) ||
+                string.IsNullOrWhiteSpace(testCycleInfo.TestVersion))
+                return BadRequest("Please provide ProjectKey, TestCycle and TestVersion");
 
-        // PUT: api/Cycle/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _testManagerService.TestSuiteManager.CreateTestCycle(testCycleInfo.ProjectKey, testCycleInfo.TestVersion, testCycleInfo.TestCycle);
+            return Ok($"The Test cycle {testCycleInfo.TestCycle} was build under {testCycleInfo.ProjectKey}/{testCycleInfo.TestVersion}"); 
         }
     }
 }

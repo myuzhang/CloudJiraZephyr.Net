@@ -56,6 +56,17 @@ namespace TestManager
             return info;
         }
 
+        public void CreateTestCycle(string projectKey, string testVersion, string testCycle)
+        {
+            var project = _jiraCloudApi.SetProject(projectKey);
+            if (project == null)
+                throw new ApplicationException($"Project \"{projectKey}\" is not found.");
+            var version = _jiraCloudApi.GetVersion(testVersion);
+            if (version == null)
+                throw new ApplicationException($"Version \"{testVersion}\" is not found.");
+            _zephyrCloudApi.CreateTestCycle(testCycle, project.Id, version.Id);
+        }
+
         // wait 10 seconds for Zephyr to add test into the test cycle
         private async Task<Cycle> CreateTestCycle(string testCycle, long projectId, long versionId)
         {
